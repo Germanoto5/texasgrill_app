@@ -3,14 +3,14 @@ import 'dart:io';
 import 'package:http/http.dart';
 
 class Request {
-  String url = "";
+  String url ="http://172.27.160.1:8080";
   
 
   Future<Response?> login(String user) async {
-    return await _call(method: 'POST', url: "$url/api/auth/login", bodyJson: user);
+    return await _call(method: 'POST', url: "$url/tga/common/api/user/login", bodyJson: user);
   }
   Future<Response?> register(String user) async {
-    return await _call(method: 'POST', url: "$url/api/auth/login", bodyJson: user);
+    return await _call(method: 'POST', url: "$url/tga/common/api/user/register", bodyJson: user);
   }
 
   Future<Response?> _call({

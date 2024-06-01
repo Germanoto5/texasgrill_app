@@ -18,12 +18,14 @@ BottomNavigationBarThemeData _bottomNavigationBarTheme() {
 
 ColorScheme _colorScheme() {
   return ColorScheme.fromSeed(
-      seedColor: const Color(0xff0B0B0E),
-      primary: const Color(0xFF393e46),
+      seedColor: const Color(0xff242424),
+      primary: const Color(0xFF242424),
       secondary: const Color(0xFFF0F0F0),
-      tertiary: const Color(0xffBD2D2D),
-      surface: const Color(0xFF5F6089),
+      tertiary: const Color(0xffBF4B0D),
+      inversePrimary: const Color(0xff4B34AE),
+      surface: const Color(0xFF7B7B7B),
       surfaceContainer: const Color(0xFFDFDFDF),
-      inverseSurface: const Color(0xff0B0B0E)
+      inverseSurface: const Color(0xff242424),
+
       );
 }
