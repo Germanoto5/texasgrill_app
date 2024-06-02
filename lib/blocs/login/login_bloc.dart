@@ -20,19 +20,20 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       String bodyPet = jsonEncode(event.login.toJson());
       Response? res = await request.login(bodyPet);
       if (res != null) {
-        Map<String, dynamic> data = jsonDecode(res.body);
         if (res.statusCode == 200 || res.statusCode == 201) {
+          Map<String, dynamic> data = jsonDecode(res.body);
           if (data.containsKey("token")) {
             secureStorage.setString("token", data["token"]);
             secureStorage.setString("email", event.login.correo);
-            print("Token: ${data["token"]}");
             User user = User();
             user.correo = event.login.correo;
             add(SetUserEvent(token: Token.fromJson(data), user: user));
           }
+        }else if(res.statusCode == 401){
+          emit(LoginErrorState(statusCode: res.statusCode, message: jsonDecode(res.body)["message"]));
         }
       }
-      emit(LoginErrorState());
+      emit(LoginErrorState(statusCode: 1, message: 'Unknow error'));
     });
     on<SetUserEvent>((event, emit) async {
       emit(LogedState(token: event.token, user: event.user));

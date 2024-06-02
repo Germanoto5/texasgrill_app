@@ -16,18 +16,25 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> with LocMixin {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
     super.initState();
   }
 
+  void goToSignIn(){
+    context.go("/signin");
+  }
+
   void _submitForm() {
-    FocusScope.of(context).unfocus();
-    Login login = Login();
-    login.correo = _emailController.text;
-    login.contrasenia = _passController.text;
-    loginBloc.add(LogingUserEvent(login: login));
+    if (_formKey.currentState?.validate() ?? false) {
+      FocusScope.of(context).unfocus();
+      Login login = Login();
+      login.correo = _emailController.text;
+      login.contrasenia = _passController.text;
+      loginBloc.add(LogingUserEvent(login: login));
+    }
   }
 
   @override
@@ -35,7 +42,7 @@ class _LoginPageState extends State<LoginPage> with LocMixin {
     return BlocListener<LoginBloc, LoginState>(
       bloc: loginBloc,
       listener: (context, state) {
-        if(state is LogedState){
+        if (state is LogedState) {
           context.go("/home");
         }
       },
@@ -47,21 +54,11 @@ class _LoginPageState extends State<LoginPage> with LocMixin {
               state is LoginErrorState ||
               state is LoginTokenExpiredState) {
             return Scaffold(
-              
               backgroundColor: Theme.of(context).colorScheme.surface,
-              body: SingleChildScrollView (
+              body: SingleChildScrollView(
                 child: Container(
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      stops: const [0.2, 1],
-                      tileMode: TileMode.decal,
-                      colors: [
-                        Theme.of(context).colorScheme.inverseSurface,
-                        Theme.of(context).colorScheme.surface
-                      ],
-                    ),
+                    color: Theme.of(context).colorScheme.surface,
                   ),
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height,
@@ -71,111 +68,149 @@ class _LoginPageState extends State<LoginPage> with LocMixin {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Flexible(
-                        flex: 1,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.lunch_dining_outlined,
-                              size: 120,
-                              color: Theme.of(context).colorScheme.tertiary,
-                            ),
-                            Text(
-                              loc.appTitle,
-                              style: TextStyle(
-                                  fontSize: 40,
-                                  color: Theme.of(context).colorScheme.tertiary),
-                            )
-                          ],
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 30),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(top: 0.0),
+                                child: ImageIcon(
+                                  const AssetImage(
+                                      'assets/images/tga_logo.png'),
+                                  size: 270,
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                      
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * 3 / 4,
-                        child: Column(
-                          children: [
-                            TextField(
-                              controller: _emailController,
-                              style: TextStyle(
-                                  color: Theme.of(context).colorScheme.secondary),
-                              decoration: InputDecoration(
-                                suffixIcon: const Icon(Icons.person),
-                                suffixIconColor:
-                                    Theme.of(context).colorScheme.secondary,
-                                enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                  width: 1.0,
-                                  color: Theme.of(context).colorScheme.secondary,
-                                )),
-                                focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                  width: 1.0,
-                                  color: Theme.of(context).colorScheme.tertiary,
-                                )),
-                                labelText: loc.mail,
-                                labelStyle: TextStyle(
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 20),
+                        child: Form(
+                          key: _formKey,
+                          child: SizedBox(
+                            width: MediaQuery.of(context).size.width * 3 / 4,
+                            child: Column(
+                              children: [
+                                TextFormField(
+                                  controller: _emailController,
+                                  style: TextStyle(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .tertiary),
+                                  decoration: InputDecoration(
+                                    suffixIcon: const Icon(Icons.person),
+                                    suffixIconColor:
+                                        Theme.of(context).colorScheme.secondary,
+                                    enabledBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                      width: 1.0,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .tertiary,
+                                    )),
+                                    focusedBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                      width: 1.0,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .tertiary,
+                                    )),
+                                    labelText: loc.mail,
+                                    labelStyle: TextStyle(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .tertiary),
+                                  ),
+                                  cursorColor:
+                                      Theme.of(context).colorScheme.tertiary,
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return loc.emptymail;
+                                    }
+                                    if (!value.contains('@')) {
+                                      return loc.arrobamail;
+                                    }
+                                    return null;
+                                  },
+                                ),
+                                const SizedBox(height: 20.0),
+                                TextFormField(
+                                  controller: _passController,
+                                  decoration: InputDecoration(
+                                    suffixIcon: const Icon(Icons.vpn_key),
+                                    suffixIconColor:
+                                        Theme.of(context).colorScheme.secondary,
+                                    labelText: loc.password,
+                                    labelStyle: TextStyle(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .tertiary),
+                                    enabledBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                      width: 1.0,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .tertiary,
+                                    )),
+                                    focusedBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                      width: 1.0,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .tertiary,
+                                    )),
+                                  ),
+                                  cursorColor:
+                                      Theme.of(context).colorScheme.tertiary,
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return loc.emptypassword;
+                                    }
+                                    return null;
+                                  },
+                                  obscureText: true,
+                                  style: TextStyle(
                                     color:
-                                        Theme.of(context).colorScheme.secondary),
-                              ),
-                              cursorColor:
-                                  Theme.of(context).colorScheme.secondary,
+                                        Theme.of(context).colorScheme.tertiary,
+                                  ),
+                                ),
+                              ],
                             ),
-                            const SizedBox(height: 20.0),
-                            TextField(
-                              controller: _passController,
-                              decoration: InputDecoration(
-                                suffixIcon: const Icon(Icons.vpn_key),
-                                suffixIconColor:
-                                    Theme.of(context).colorScheme.secondary,
-                                labelText: loc.password,
-                                labelStyle: TextStyle(
-                                    color:
-                                        Theme.of(context).colorScheme.secondary),
-                                enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                  width: 1.0,
-                                  color: Theme.of(context).colorScheme.secondary,
-                                )),
-                                focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                  width: 1.0,
-                                  color: Theme.of(context).colorScheme.tertiary,
-                                )),
-                              ),
-                              cursorColor:
-                                  Theme.of(context).colorScheme.secondary,
-                              obscureText: true,
-                              style: TextStyle(
-                                color: Theme.of(context).colorScheme.secondary,
-                              ),
-                            ),
-                          ],
+                          ),
                         ),
                       ),
-                        _setWidgetState(state),
-                       Padding(
-                        padding: const EdgeInsets.only(bottom: 50, top: 40),
+                      _setWidgetState(state),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 20, top: 10),
                         child: Container(
                           height: 80,
                           width: MediaQuery.of(context).size.width * 3 / 4,
                           decoration: BoxDecoration(
-                              color: Theme.of(context).colorScheme.tertiary,
+                              color: Theme.of(context).colorScheme.secondary,
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(5.0))),
                           child: InkWell(
                             onTap: _submitForm,
                             child: Container(
                               padding: const EdgeInsets.symmetric(vertical: 10),
-                              child:  Column(
+                              child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  const Icon(
+                                  Icon(
                                     Icons.login,
-                                    color: Colors.white,
+                                    color:
+                                        Theme.of(context).colorScheme.tertiary,
                                   ),
                                   Text(
                                     loc.login,
-                                    style: const TextStyle(color: Colors.white),
+                                    style: TextStyle(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .tertiary),
                                   )
                                 ],
                               ),
@@ -183,6 +218,21 @@ class _LoginPageState extends State<LoginPage> with LocMixin {
                           ),
                         ),
                       ),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 30),
+                        child: TextButton.icon(
+                          onPressed: goToSignIn,
+                          icon: Icon(
+                            Icons.open_in_new_outlined,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                          label: Text(
+                            loc.signinbutton,
+                            style: TextStyle(
+                                color: Theme.of(context).colorScheme.primary),
+                          ),
+                        ),
+                      )
                     ],
                   ),
                 ),
@@ -196,19 +246,25 @@ class _LoginPageState extends State<LoginPage> with LocMixin {
     );
   }
 
-  Widget _setWidgetState(LoginState state){
-    if(state is LogingState){
+  Widget _setWidgetState(LoginState state) {
+    if (state is LogingState) {
       return Padding(
-        padding: const EdgeInsets.only(top:20.0),
-        child: CircularProgressIndicator(backgroundColor:Theme.of(context).colorScheme.secondary),
+        padding: const EdgeInsets.only(top: 20.0),
+        child: CircularProgressIndicator(
+            backgroundColor: Theme.of(context).colorScheme.secondary),
       );
-    }else if(state is LoginErrorState){
+    } else if (state is LoginErrorState) {
       return Padding(
-        padding: const EdgeInsets.only(top: 36 ),
-        child: Text("El usuario o la contraseña son incorrectos" , style: TextStyle(color: Theme.of(context).colorScheme.secondary),),
+        padding: const EdgeInsets.only(top: 36),
+        child: Text(
+          state.message,
+          style: TextStyle(color: Theme.of(context).colorScheme.secondary),
+        ),
       );
     }
 
-    return const SizedBox(height: 56,);
+    return const SizedBox(
+      height: 56,
+    );
   }
 }

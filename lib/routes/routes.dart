@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:texasgrill_app/pages/home/home_page.dart';
 import 'package:texasgrill_app/pages/login/login_page.dart';
+import 'package:texasgrill_app/pages/sign_in/sign_in_page.dart';
 
 GoRouter createRouter(String initialLocation) {
   return GoRouter(
@@ -12,8 +13,12 @@ GoRouter createRouter(String initialLocation) {
         builder: (BuildContext context, GoRouterState state) {
           return const LoginPage();
         },
-        /*routes: <GoRoute>[
-        ]*/
+      ),
+      GoRoute(
+        path: '/signin',
+        builder: (BuildContext context, GoRouterState state) {
+          return const SignInPage();
+        },
       ),
       GoRoute(
         path: '/home',

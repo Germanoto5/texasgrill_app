@@ -16,7 +16,12 @@ class LogoutState extends LoginState{}
 
 class LogingState extends LoginState{}
 
-class LoginErrorState extends LoginState{}
+class LoginErrorState extends LoginState{
+  final int statusCode;
+  final String  message;
+
+  LoginErrorState({required this.statusCode, required this.message});
+}
 
 class LoginTokenExpiredState extends LoginState{}
 

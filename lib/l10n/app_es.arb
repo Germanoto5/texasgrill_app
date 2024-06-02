@@ -2,5 +2,15 @@
     "appTitle" : "Texas Grill",
     "mail" : "Correo",
     "password" : "Contraseña",
-    "login" : "Iniciar sesion"
+    "repassword" : "Repite la contraseña",
+    "login" : "Iniciar sesion",
+    "name" : "Nombre",
+    "surnames" : "Apellidos",
+    "emptymail" : "El correo no puede estar vacío.",
+    "arrobamail" : "El correo debe contener un @.",
+    "emptypassword" : "La contraseña no puede estar vacía.",
+    "signinbutton" : "¿No tienes cuenta? Registrate aquí.",
+    "signin" : "Registro",
+    "emptyname" : "El nombre no puede estar vacio.",
+    "emptysurnames" : "Los apellidos no pueden estar vacios."
 }

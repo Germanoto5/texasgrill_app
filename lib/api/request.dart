@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:http/http.dart';
 
 class Request {
-  String url ="http://172.27.160.1:8080";
+  String url ="http://192.168.1.14:3022";
   
 
   Future<Response?> login(String user) async {
