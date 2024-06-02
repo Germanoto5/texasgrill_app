@@ -39,21 +39,12 @@ class _HomePage extends State<HomePage> {
             ),
           ),
           MenuPage(),
-          Container(
-            color: Colors.orange,
-            child: Center(
-              child: Text(
-                'Página 3',
-                style: TextStyle(fontSize: 30, color: Colors.white),
-              ),
-            ),
-          ),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Theme.of(context).colorScheme.surface,
-        selectedItemColor: Theme.of(context).colorScheme.primary,
-        
+        selectedItemColor: Theme.of(context).colorScheme.secondary,
+        elevation: 0.0,
         currentIndex: _currentIndex,
         onTap: (index) {
           setState(() {
@@ -61,19 +52,15 @@ class _HomePage extends State<HomePage> {
             _pageController.animateToPage(index, duration: Duration(milliseconds: 500), curve: Curves.ease);
           });
         },
-        items: <BottomNavigationBarItem>[
+        items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             
-            icon: Icon(Icons.home),
-            label: 'Inicio',
+            icon: Icon(Icons.discount),
+            label: 'Promociones',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.restaurant_menu),
             label: 'Menú',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Ajustes',
           ),
         ],
       ),
