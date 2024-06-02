@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:texasgrill_app/pages/menu/menu_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.title});
@@ -17,7 +18,8 @@ class _HomePage extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('PageView con Menú Inferior'),
+        title: Text('Texas Grill Archena',
+        style: TextStyle(color: Theme.of(context).colorScheme.tertiary),),
       ),
       body: PageView(
         controller: _pageController,
@@ -36,15 +38,7 @@ class _HomePage extends State<HomePage> {
               ),
             ),
           ),
-          Container(
-            color: Colors.green,
-            child: Center(
-              child: Text(
-                'Página 2',
-                style: TextStyle(fontSize: 30, color: Colors.white),
-              ),
-            ),
-          ),
+          MenuPage(),
           Container(
             color: Colors.orange,
             child: Center(
@@ -57,6 +51,9 @@ class _HomePage extends State<HomePage> {
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        selectedItemColor: Theme.of(context).colorScheme.primary,
+        
         currentIndex: _currentIndex,
         onTap: (index) {
           setState(() {
@@ -66,12 +63,13 @@ class _HomePage extends State<HomePage> {
         },
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
+            
             icon: Icon(Icons.home),
             label: 'Inicio',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Buscar',
+            icon: Icon(Icons.restaurant_menu),
+            label: 'Menú',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),

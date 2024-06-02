@@ -12,6 +12,9 @@ class Request {
   Future<Response?> register(String user) async {
     return await _call(method: 'POST', url: "$url/tga/common/api/user/register", bodyJson: user);
   }
+  Future<Response?> getCategorias() async {
+    return await _call(method: 'GET', url: "$url/tga/common/api/read/categorias");
+  }
 
   Future<Response?> _call({
       required String method, required String url, String? bodyJson}) async {
