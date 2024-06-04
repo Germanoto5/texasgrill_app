@@ -12,7 +12,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePage extends State<HomePage> {
   int _currentIndex = 0;
-  PageController _pageController = PageController(initialPage: 0);
+  final PageController _pageController = PageController(initialPage: 0);
 
   @override
   Widget build(BuildContext context) {
@@ -31,25 +31,22 @@ class _HomePage extends State<HomePage> {
         children: <Widget>[
           Container(
             color: Colors.blue,
-            child: Center(
+            child: const Center(
               child: Text(
                 'Página 1',
                 style: TextStyle(fontSize: 30, color: Colors.white),
               ),
             ),
           ),
-          MenuPage(),
+          const MenuPage(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Theme.of(context).colorScheme.surface,
-        selectedItemColor: Theme.of(context).colorScheme.secondary,
-        elevation: 0.0,
         currentIndex: _currentIndex,
         onTap: (index) {
           setState(() {
             _currentIndex = index;
-            _pageController.animateToPage(index, duration: Duration(milliseconds: 500), curve: Curves.ease);
+            _pageController.animateToPage(index, duration: const Duration(milliseconds: 500), curve: Curves.ease);
           });
         },
         items: const <BottomNavigationBarItem>[

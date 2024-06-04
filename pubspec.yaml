@@ -40,5 +40,11 @@ flutter:
   
   assets:
     - assets/images/
+    - assets/fonts/
+  fonts:
+    - family: OpenSans
+      fonts:
+        - asset: assets/fonts/OpenSans-Regular.ttf
+        - asset: assets/fonts/OpenSans-Bold.ttf
 
 

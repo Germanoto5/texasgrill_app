@@ -1,13 +1,32 @@
+import 'dart:convert';
+
 import 'package:bloc/bloc.dart';
+import 'package:http/http.dart';
 import 'package:meta/meta.dart';
+import 'package:texasgrill_app/api/request.dart';
+import 'package:texasgrill_app/api/response.dart';
+import 'package:texasgrill_app/models/category_menu.dart';
+import 'package:texasgrill_app/models/product_menu.dart';
 
 part 'product_event.dart';
 part 'product_state.dart';
 
 class ProductBloc extends Bloc<ProductEvent, ProductState> {
-  ProductBloc() : super(ProductInitial()) {
-    on<ProductEvent>((event, emit) {
-      // TODO: implement event handler
+  ProductBloc() : super(InitalProductState()) {
+    on<LoadProductEvent>((event, emit) async{
+      emit(LoadingProductState());
+      Response? response = await request.getProductosByCategorias(event.category.id!);
+      if(response != null){
+        final decodedResponse = utf8.decode(response.bodyBytes);
+        Map<String, dynamic> data = jsonDecode(decodedResponse);
+        if(response.statusCode == 200){
+          ListProductsRes listRes = ListProductsRes.fromJson(data);
+          emit(LoadedProductState(products: listRes.data!));
+        }else{
+          emit(ErrorProductState(statusCode: response.statusCode, message: data["message"]));
+        }
+
+      }
     });
   }
 }

@@ -8,12 +8,45 @@ class ProductWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       child: Container(
-        height: 200,
+        padding: const EdgeInsets.all(15),
+        width: MediaQuery.of(context).size.width/2 -20,
+        height: 250,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: Theme.of(context).colorScheme.inverseSurface,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Center(
+              child: Image.asset(
+                'assets/images/burguer.png',
+                width: 120,
+                height: 120,
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Text(
+              product.nombre!.toUpperCase(),
+              style: TextStyle(
+                  color: Theme.of(context).colorScheme.secondary, fontSize: 16),
+            ),
+            const Spacer(),
+            Align(
+              alignment: Alignment.bottomLeft,
+              child: Text(
+                  "${product.precio!.toString()} €",
+                  style: TextStyle(
+                      color: Theme.of(context).colorScheme.tertiary,
+                      fontSize: 20),
+                ),
+            ),
+          ],
         ),
       ),
     );

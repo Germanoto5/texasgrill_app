@@ -15,6 +15,9 @@ class Request {
   Future<Response?> getCategorias() async {
     return await _call(method: 'GET', url: "$url/tga/common/api/read/categorias");
   }
+  Future<Response?> getProductosByCategorias(int idCategoria) async {
+    return await _call(method: 'GET', url: "$url/tga/common/api/read/productos/categoria/$idCategoria");
+  }
 
   Future<Response?> _call({
       required String method, required String url, String? bodyJson}) async {

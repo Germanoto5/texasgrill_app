@@ -12,7 +12,7 @@ part 'categories_state.dart';
 
 class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
   List<CategoryMenu>? categories;
-  CategoriesBloc() : super(CategoriesInitial()) {
+  CategoriesBloc() : super(InitialCategoriesState()) {
     on<LoadCategoriesEvent>((event, emit) async{
       emit(LoadingCategoriesState());
       Response? response = await request.getCategorias();
@@ -24,10 +24,11 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
           categories = categoriesRes.data;
           emit(LoadedCategoriesState(categories: categories!));
         }else{
-          emit(ErrorCategoriesState());
+
+          emit(ErrorCategoriesState(statusCode: response.statusCode, message: data["message"]));
         }
       }else{
-        emit(ErrorCategoriesState());
+        emit(const ErrorCategoriesState(statusCode: 0 , message: "No hay conexion"));
       }
     });
   }

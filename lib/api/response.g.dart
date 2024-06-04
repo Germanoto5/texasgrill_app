@@ -6,6 +6,12 @@ part of 'response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+ListProductsRes _$ListProductsResFromJson(Map<String, dynamic> json) =>
+    ListProductsRes()
+      ..data = (json['data'] as List<dynamic>?)
+          ?.map((e) => ProductMenu.fromJson(e as Map<String, dynamic>))
+          .toList();
+
 ListCategoriesRes _$ListCategoriesResFromJson(Map<String, dynamic> json) =>
     ListCategoriesRes()
       ..data = (json['data'] as List<dynamic>?)

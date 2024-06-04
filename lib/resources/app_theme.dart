@@ -4,15 +4,16 @@ ThemeData defaultTheme() {
   return ThemeData(
     bottomNavigationBarTheme: _bottomNavigationBarTheme(),
     colorScheme: _colorScheme(),
+    fontFamily: 'OpenSans',
     useMaterial3: true,
   );
 }
 
 BottomNavigationBarThemeData _bottomNavigationBarTheme() {
   return const BottomNavigationBarThemeData(
-    backgroundColor: Colors.white,
-    unselectedItemColor:   Color(0xFFDEDEDE),
-    selectedItemColor:   Color(0xff6892B4),
+    backgroundColor: Color(0xFF2B2824),
+    unselectedItemColor:Color(0xffF0F4F5),
+    selectedItemColor: Color(0xFFB08A4C),
   );
 }
 
