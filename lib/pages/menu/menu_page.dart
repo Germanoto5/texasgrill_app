@@ -40,27 +40,28 @@ class _MenuPageState extends State<MenuPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<CategoriesBloc, CategoriesState>(
-      bloc: categoriesBloc,
-      listener: (context, state) {
-        if (state is LoadedCategoriesState) {
-          categoryMenu = state.categories[_itemSelected];
-          productBloc.add(LoadProductEvent(category: categoryMenu));
-        }
-      },
-      child: BlocBuilder<CategoriesBloc, CategoriesState>(
-          bloc: categoriesBloc,
-          builder: (context, state) {
-            if (state is LoadingCategoriesState) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            } else if (state is LoadedCategoriesState) {
-              return Scaffold(
-                backgroundColor: Theme.of(context).colorScheme.surface,
-                body: Column(
+    return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      body: BlocListener<CategoriesBloc, CategoriesState>(
+        bloc: categoriesBloc,
+        listener: (context, state) {
+          if (state is LoadedCategoriesState) {
+            categoryMenu = state.categories[_itemSelected];
+            productBloc.add(LoadProductEvent(category: categoryMenu));
+          }
+        },
+        child: BlocBuilder<CategoriesBloc, CategoriesState>(
+            bloc: categoriesBloc,
+            builder: (context, state) {
+              if (state is LoadingCategoriesState ||
+                  state is InitialCategoriesState) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (state is LoadedCategoriesState) {
+                return Column(
                   children: [
-                    Container(
+                    SizedBox(
                       height: 100,
                       child: ListView.builder(
                           scrollDirection: Axis.horizontal,
@@ -70,8 +71,8 @@ class _MenuPageState extends State<MenuPage> {
                               padding: const EdgeInsets.only(
                                   left: 11, right: 8, bottom: 30, top: 20),
                               child: InkWell(
-                                highlightColor: Colors.transparent ,
-                                splashColor:Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                splashColor: Colors.transparent,
                                 onTap: () {
                                   _onItemTapped(index);
                                 },
@@ -116,31 +117,62 @@ class _MenuPageState extends State<MenuPage> {
                       builder: (context, state) {
                         if (state is LoadedProductState) {
                           return Expanded(
-                            child: ListView(
-                              children: construirLista(state.products),
-                            )
-                          );
+                              child: ListView(
+                            children: construirLista(state.products),
+                          ));
                         } else if (state is LoadingProductState ||
                             state is InitalProductState) {
                           return const Center(
                             child: CircularProgressIndicator(),
                           );
                         } else {
-                          return Center(
-                            child: Text((state as ErrorProductState).message),
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Center(
+                              child: Text(
+                                (state as ErrorProductState).message,
+                                style: TextStyle(
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
+                                ),
+                              ),
+                            ),
                           );
                         }
                       },
                     )
                   ],
-                ),
-              );
-            } else {
-              return const Center(
-                child: Text("Algo ha ocurrido"),
-              );
-            }
-          }),
+                );
+              } else {
+                return Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.report_problem_outlined,
+                            color: Theme.of(context).colorScheme.primary,
+                            size: 100,),
+                            const SizedBox(width: 25,),
+                            Flexible(
+                              child: Text(
+                                (state as ErrorCategoriesState).message,
+                                style: TextStyle(
+                                  color: Theme.of(context).colorScheme.primary,
+                                  fontSize: 20
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                    ],
+                  ),
+                );
+              }
+            }),
+      ),
     );
   }
 
@@ -151,8 +183,7 @@ class _MenuPageState extends State<MenuPage> {
         Row row = Row(
           children: [
             ProductWidget(product: products[contador]),
-            ProductWidget(product: products[contador+1]),
-            
+            ProductWidget(product: products[contador + 1]),
           ],
         );
         widgetList.add(row);
@@ -169,9 +200,8 @@ class _MenuPageState extends State<MenuPage> {
         } else {
           Row row = Row(
             children: [
-               ProductWidget(product: products[contador]),
-               ProductWidget(product: products[contador+1]),
-              
+              ProductWidget(product: products[contador]),
+              ProductWidget(product: products[contador + 1]),
             ],
           );
           widgetList.add(row);

@@ -28,6 +28,14 @@ class ProductWidget extends StatelessWidget {
                 height: 120,
               ),
             ),
+            /*product.urlImagen != null && product.urlImagen!.isNotEmpty? 
+            Center(
+              child: Image.network(
+                product.urlImagen!,
+                width: 120,
+                height: 120,
+              ),
+            ) : SizedBox(),*/
             const SizedBox(
               height: 10,
             ),

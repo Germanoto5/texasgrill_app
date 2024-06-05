@@ -12,8 +12,8 @@ ThemeData defaultTheme() {
 BottomNavigationBarThemeData _bottomNavigationBarTheme() {
   return const BottomNavigationBarThemeData(
     backgroundColor: Color(0xFF2B2824),
-    unselectedItemColor:Color(0xffF0F4F5),
-    selectedItemColor: Color(0xFFB08A4C),
+    unselectedItemColor:Color(0xFFB08A4C),
+    selectedItemColor: Color(0xffF0F4F5),
   );
 }
 

@@ -26,6 +26,8 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
           emit(ErrorProductState(statusCode: response.statusCode, message: data["message"]));
         }
 
+      }else{
+        emit(ErrorProductState(statusCode: 0, message: "No se pudo obtener la información. Inténtalo de nuevo más tarde."));
       }
     });
   }

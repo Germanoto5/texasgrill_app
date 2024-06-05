@@ -3,8 +3,18 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:texasgrill_app/models/category_menu.dart';
 import 'package:texasgrill_app/models/product_menu.dart';
+import 'package:texasgrill_app/models/promotion.dart';
 
 part 'response.g.dart';
+
+@JsonSerializable(includeIfNull: false, createToJson: false)
+class ListPromotionRes extends _ListRes{
+  List<Promotion>? data;
+
+  ListPromotionRes();
+
+  factory ListPromotionRes.fromJson(Map<String, dynamic> json) => _$ListPromotionResFromJson(json);
+}
 
 @JsonSerializable(includeIfNull: false, createToJson: false)
 class ListProductsRes extends _ListRes{

@@ -28,7 +28,7 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
           emit(ErrorCategoriesState(statusCode: response.statusCode, message: data["message"]));
         }
       }else{
-        emit(const ErrorCategoriesState(statusCode: 0 , message: "No hay conexion"));
+        emit(const ErrorCategoriesState(statusCode: 0 , message: "No se pudo obtener la información. Inténtalo de nuevo más tarde."));
       }
     });
   }
