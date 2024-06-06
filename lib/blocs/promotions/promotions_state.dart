@@ -7,7 +7,11 @@ final class InitialPromotionsState extends PromotionsState {}
 
 final class LoadingPromotionsState extends PromotionsState{}
 
-final class LoadedPromotionsState extends PromotionsState{}
+final class LoadedPromotionsState extends PromotionsState{
+  final List<Promotion> promotions;
+
+  LoadedPromotionsState({required this.promotions});
+}
 
 class ErrorPromotionsState extends PromotionsState {
   final int statusCode;

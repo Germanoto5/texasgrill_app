@@ -10,7 +10,7 @@ Promotion _$PromotionFromJson(Map<String, dynamic> json) => Promotion()
   ..id = (json['id'] as num?)?.toInt()
   ..nombre = json['nombre'] as String?
   ..descripcion = json['descripcion'] as String?
-  ..descuento = json['descuento'] as String?
+  ..descuento = (json['descuento'] as num?)?.toDouble()
   ..fechaInicio = json['fechaInicio'] == null
       ? null
       : DateTime.parse(json['fechaInicio'] as String)

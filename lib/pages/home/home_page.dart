@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:texasgrill_app/pages/menu/menu_page.dart';
+import 'package:texasgrill_app/pages/promotion/promotions_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.title});
@@ -28,17 +29,9 @@ class _HomePage extends State<HomePage> {
             _currentIndex = index;
           });
         },
-        children: <Widget>[
-          Container(
-            color: Colors.blue,
-            child: const Center(
-              child: Text(
-                'Página 1',
-                style: TextStyle(fontSize: 30, color: Colors.white),
-              ),
-            ),
-          ),
-          const MenuPage(),
+        children: const <Widget>[
+           PromotionsPage(),
+           MenuPage(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(

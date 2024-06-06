@@ -7,7 +7,7 @@ class Promotion {
   int? id;
   String? nombre;
   String? descripcion;
-  String? descuento;
+  double? descuento;
   DateTime? fechaInicio;
   DateTime? fechaFin;
 

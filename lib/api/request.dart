@@ -29,6 +29,12 @@ class Request {
         url: "$url/tga/common/api/read/productos/categoria/$idCategoria");
   }
 
+  Future<Response?> getPromotions() async {
+    return await _call(
+        method: 'GET',
+        url: "$url/tga/common/api/read/ofertas");
+  }
+
   Future<Response?> _call(
       {required String method, required String url, String? bodyJson}) async {
     Response? response;
