@@ -24,7 +24,7 @@ class _HomePage extends State<HomePage> {
     return BlocListener<LoginBloc, LoginState>(
       bloc: loginBloc,
       listener: (context, state) {
-        if(state is LoginTokenExpiredState){
+        if(state is LoginTokenExpiredState || state is LogoutState){
           context.go("/login");
         }
       },
@@ -35,6 +35,12 @@ class _HomePage extends State<HomePage> {
             'Texas Grill Archena',
             style: TextStyle(color: Theme.of(context).colorScheme.tertiary),
           ),
+          actions: [
+          IconButton(
+            icon: Icon(Icons.logout,
+            color: Theme.of(context).colorScheme.tertiary ,),
+            onPressed: () => loginBloc.add(LogoutUserEvent())),
+        ],
           surfaceTintColor: Theme.of(context).colorScheme.tertiary,
           iconTheme: IconThemeData(
             size: 30,

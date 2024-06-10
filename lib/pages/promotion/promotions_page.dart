@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:texasgrill_app/blocs/promotions/promotions_bloc.dart';
 import 'package:texasgrill_app/pages/promotion/promotion_item_widget.dart';
+import 'package:texasgrill_app/widgets/error_widget.dart';
 
 class PromotionsPage extends StatefulWidget {
   const PromotionsPage({super.key});
@@ -29,7 +30,7 @@ class _PromotionsPageState extends State<PromotionsPage> {
           if(state is LoadingPromotionsState || state is InitialPromotionsState){
             return const Center(child: CircularProgressIndicator(),);
           }else if(state is LoadedPromotionsState){
-            return Padding(
+            return state.promotions.isNotEmpty ? Padding(
               padding: const EdgeInsets.all(8.0),
               child: ListView.builder(
                 itemCount: state.promotions.length,
@@ -38,9 +39,10 @@ class _PromotionsPageState extends State<PromotionsPage> {
                  },
                 
               ),
-            );
+            ) : Center(child: Text("No hay ofertas en este momento",
+            style: TextStyle(color: Theme.of(context).colorScheme.primary),));
           }else{
-            return ErrorWidget((state as ErrorPromotionsState).message);
+            return SelfErrorWidget(message: (state as ErrorPromotionsState).message);
           }
         },
       ),

@@ -5,6 +5,7 @@ import 'package:equatable/equatable.dart';
 import 'package:http/http.dart';
 import 'package:texasgrill_app/api/request.dart';
 import 'package:texasgrill_app/api/response.dart';
+import 'package:texasgrill_app/blocs/login/login_bloc.dart';
 import 'package:texasgrill_app/models/category_menu.dart';
 
 part 'categories_event.dart';
@@ -23,6 +24,8 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
           ListCategoriesRes categoriesRes = ListCategoriesRes.fromJson(data);
           categories = categoriesRes.data;
           emit(LoadedCategoriesState(categories: categories!));
+        }else if(response.statusCode == 401){
+          loginBloc.add(LoginTokenExpiredEvent());
         }else{
 
           emit(ErrorCategoriesState(statusCode: response.statusCode, message: data["message"]));

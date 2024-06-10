@@ -5,6 +5,7 @@ import 'package:http/http.dart';
 import 'package:meta/meta.dart';
 import 'package:texasgrill_app/api/request.dart';
 import 'package:texasgrill_app/api/response.dart';
+import 'package:texasgrill_app/blocs/login/login_bloc.dart';
 import 'package:texasgrill_app/models/category_menu.dart';
 import 'package:texasgrill_app/models/product_menu.dart';
 
@@ -22,6 +23,8 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
         if(response.statusCode == 200){
           ListProductsRes listRes = ListProductsRes.fromJson(data);
           emit(LoadedProductState(products: listRes.data!));
+        }else if(response.statusCode == 401){
+          loginBloc.add(LoginTokenExpiredEvent());
         }else{
           emit(ErrorProductState(statusCode: response.statusCode, message: data["message"]));
         }

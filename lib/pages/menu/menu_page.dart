@@ -5,6 +5,7 @@ import 'package:texasgrill_app/blocs/product/product_bloc.dart';
 import 'package:texasgrill_app/models/category_menu.dart';
 import 'package:texasgrill_app/models/product_menu.dart';
 import 'package:texasgrill_app/pages/menu/product_item_widget.dart';
+import 'package:texasgrill_app/widgets/error_widget.dart';
 
 class MenuPage extends StatefulWidget {
   const MenuPage({super.key});
@@ -126,25 +127,14 @@ class _MenuPageState extends State<MenuPage> {
                             child: CircularProgressIndicator(),
                           );
                         } else {
-                          return Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Center(
-                              child: Text(
-                                (state as ErrorProductState).message,
-                                style: TextStyle(
-                                  color:
-                                      Theme.of(context).colorScheme.secondary,
-                                ),
-                              ),
-                            ),
-                          );
+                          return SelfErrorWidget(message: (state as ErrorProductState).message);
                         }
                       },
                     )
                   ],
                 );
               } else {
-                return ErrorWidget((state as ErrorCategoriesState).message);
+                return SelfErrorWidget(message: (state as ErrorCategoriesState).message);
               }
             }),
       ),
