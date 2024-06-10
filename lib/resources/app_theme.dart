@@ -13,7 +13,7 @@ BottomNavigationBarThemeData _bottomNavigationBarTheme() {
   return const BottomNavigationBarThemeData(
     elevation: 0,
     backgroundColor: Color(0xFF2B2824),
-    unselectedItemColor:Color(0xFFB08A4C),
+    unselectedItemColor:Color(0xFF766C62),
     selectedItemColor: Color(0xffF0F4F5),
   );
 }

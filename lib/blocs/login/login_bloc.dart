@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:http/http.dart';
 import 'package:meta/meta.dart';
 import 'package:texasgrill_app/api/authentication_request.dart';
+import 'package:texasgrill_app/api/request.dart';
 import 'package:texasgrill_app/models/login.dart';
 import 'package:texasgrill_app/models/token.dart';
 import 'package:texasgrill_app/models/user.dart';
@@ -26,6 +27,13 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             secureStorage.setString("token", data["token"]);
             secureStorage.setString("email", event.login.correo);
             User user = User();
+            Response? response = await request.getAboutMe();
+            
+            if(response != null && response.statusCode == 200){
+              final decodedResponse = utf8.decode(response.bodyBytes);
+              Map<String, dynamic> dataUser = jsonDecode(decodedResponse);
+              user = User.fromJson(dataUser);
+            }
             user.correo = event.login.correo;
             add(SetUserEvent(token: Token.fromJson(data), user: user));
           }

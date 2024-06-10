@@ -42,11 +42,14 @@ class _PromotionWidgetState extends State<PromotionWidget> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(widget.promotion.nombre!,
+                  textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.primary,
                     fontSize: 30
                   ),),
+                  const SizedBox(height: 15,),
                   Text(widget.promotion.descripcion!,
+                  textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.tertiary,
                     fontSize: 20

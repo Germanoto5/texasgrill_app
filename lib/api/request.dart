@@ -8,6 +8,11 @@ class Request {
   String url = "http://192.168.1.14:3030/tga/api";
 
 
+  Future<Response?> getAboutMe() async {
+    return await _call(
+        method: 'GET', url: "$url/me");
+  }
+
   Future<Response?> getCategorias() async {
     return await _call(
         method: 'GET', url: "$url/categorias");
@@ -29,11 +34,7 @@ class Request {
         method: 'GET',
         url: "$url/oferta/$id");
   }
-  Future<Response?> getAboutMe(String token) async {
-    return await _call(
-        method: 'GET',
-        url: "$url/ofertas");
-  }
+  
    Future<Response?> redeemPromotion(int idPromotion) async {
     return await _call(
         method: 'GET',

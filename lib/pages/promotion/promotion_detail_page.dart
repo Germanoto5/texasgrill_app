@@ -197,57 +197,69 @@ class _PromotionDetailPageState extends State<PromotionDetailPage> {
                         return Padding(
                           padding: const EdgeInsets.only(top: 90),
                           child: Container(
-                            width: MediaQuery.of(context).size.width*3/4,
+                            width: MediaQuery.of(context).size.width * 3 / 4,
                             padding: const EdgeInsets.symmetric(
-                                vertical: 5, horizontal: 15),
+                                vertical: 10, horizontal: 15),
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
+                              borderRadius: BorderRadius.circular(5),
                               border: Border.all(
                                 color: Theme.of(context)
                                     .colorScheme
-                                    .primary, // Color del borde
-                                width: 2.0, // Ancho del borde
+                                    .secondary, // Color del borde
+                                width: 1, // Ancho del borde
                               ),
                             ),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Text(
-                                  '${minutes.toString()}:${seconds.toString().padLeft(2, '0')}',
-                                  style: TextStyle(
-                                      fontSize:30,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .tertiary),
-                                ),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Text(
-                                      "código:",
-                                      style: TextStyle(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .tertiary,
-                                          fontSize: 22),
+                                    Icon(
+                                      Icons.timer_outlined,
+                                      size: 25,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .secondary,
                                     ),
                                     const SizedBox(
-                                  width: 15,
+                                      width: 10,
+                                    ),
+                                    Text(
+                                      '${minutes.toString()}:${seconds.toString().padLeft(2, '0')}',
+                                      style: TextStyle(
+                                          fontSize: 25,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .tertiary),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Text(
+                                  "Oferta lista para canjear:",
+                                  style: TextStyle(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .tertiary,
+                                      fontSize: 18),
+                                ),
+                                const SizedBox(
+                                  height: 10,
                                 ),
                                 Text(
                                   (promotionBloc.state as LoadedPromotionState)
                                       .promotion
                                       .codigo!,
                                   style: TextStyle(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .secondary,
-                                      fontSize: 25),
+                                    color:
+                                        Theme.of(context).colorScheme.secondary,
+                                    fontSize: 24,
+                                  ),
                                 ),
-                                  ],
-                                ),
-                                
                               ],
                             ),
                           ),
@@ -266,7 +278,7 @@ class _PromotionDetailPageState extends State<PromotionDetailPage> {
                           padding: const EdgeInsets.only(
                               right: 20, left: 20, bottom: 80),
                           child: InkWell(
-                            onTap: startCountDown,
+                            onTap: buildDialog,
                             child: Container(
                               width: MediaQuery.of(context).size.width,
                               height: 100,
@@ -298,6 +310,50 @@ class _PromotionDetailPageState extends State<PromotionDetailPage> {
           },
         ),
       ),
+    );
+  }
+
+  buildDialog() {
+    showDialog<int>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Theme.of(context).colorScheme.surface,
+          title: Text(
+            '¿Quieres canjear la promoción?',
+            style: TextStyle(color: Theme.of(context).colorScheme.primary),
+          ),
+          actions: [
+            TextButton(
+              style: ButtonStyle(
+                backgroundColor: WidgetStateProperty.all<Color>(
+                    Theme.of(context).colorScheme.secondary),
+                foregroundColor: WidgetStateProperty.all<Color>(
+                    Theme.of(context).colorScheme.tertiary),
+              ),
+              onPressed: () {
+                startCountDown();
+                Navigator.pop(context);
+              },
+              child: const Text('Canjear'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              style: ButtonStyle(
+                backgroundColor: WidgetStateProperty.all<Color>(
+                    Theme.of(context).colorScheme.secondary),
+                foregroundColor: WidgetStateProperty.all<Color>(
+                    Theme.of(context).colorScheme.tertiary),
+              ),
+              child: const Text('Cerrar'),
+            ),
+          ],
+          content: Text(
+            "Si aceptas tendrás 15 minutos para poder canjearla",
+            style: TextStyle(color: Theme.of(context).colorScheme.tertiary),
+          ),
+        );
+      },
     );
   }
 }
