@@ -10,6 +10,13 @@ class LogedState extends LoginState{
   final User user;
 
   LogedState({required this.token, required this.user});
+
+  LogedState copyWith({Token? token, User? user}) {
+    return LogedState(
+      token: token ?? this.token,
+      user: user ?? this.user,
+    );
+  }
 }
 
 class LogoutState extends LoginState{}

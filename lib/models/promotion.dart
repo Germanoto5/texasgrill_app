@@ -10,6 +10,10 @@ class Promotion {
   double? descuento;
   DateTime? fechaInicio;
   DateTime? fechaFin;
+  String? imagen;
+  bool? activo;
+	DateTime? tiempoParaGastar;
+  String? codigo;
 
   Promotion();
 

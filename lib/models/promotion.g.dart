@@ -16,7 +16,13 @@ Promotion _$PromotionFromJson(Map<String, dynamic> json) => Promotion()
       : DateTime.parse(json['fechaInicio'] as String)
   ..fechaFin = json['fechaFin'] == null
       ? null
-      : DateTime.parse(json['fechaFin'] as String);
+      : DateTime.parse(json['fechaFin'] as String)
+  ..imagen = json['imagen'] as String?
+  ..activo = json['activo'] as bool?
+  ..tiempoParaGastar = json['tiempoParaGastar'] == null
+      ? null
+      : DateTime.parse(json['tiempoParaGastar'] as String)
+  ..codigo = json['codigo'] as String?;
 
 Map<String, dynamic> _$PromotionToJson(Promotion instance) {
   final val = <String, dynamic>{};
@@ -33,5 +39,10 @@ Map<String, dynamic> _$PromotionToJson(Promotion instance) {
   writeNotNull('descuento', instance.descuento);
   writeNotNull('fechaInicio', instance.fechaInicio?.toIso8601String());
   writeNotNull('fechaFin', instance.fechaFin?.toIso8601String());
+  writeNotNull('imagen', instance.imagen);
+  writeNotNull('activo', instance.activo);
+  writeNotNull(
+      'tiempoParaGastar', instance.tiempoParaGastar?.toIso8601String());
+  writeNotNull('codigo', instance.codigo);
   return val;
 }

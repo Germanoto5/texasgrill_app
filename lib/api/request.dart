@@ -2,37 +2,42 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:http/http.dart';
+import 'package:texasgrill_app/utils/secure_storage.dart';
 
 class Request {
-  String url = "http://192.168.1.141:3022";
+  String url = "http://192.168.1.14:3030/tga/api";
 
-  Future<Response?> login(String user) async {
-    return await _call(
-        method: 'POST', url: "$url/tga/common/api/user/login", bodyJson: user);
-  }
-
-  Future<Response?> register(String user) async {
-    return await _call(
-        method: 'POST',
-        url: "$url/tga/common/api/user/register",
-        bodyJson: user);
-  }
 
   Future<Response?> getCategorias() async {
     return await _call(
-        method: 'GET', url: "$url/tga/common/api/read/categorias");
+        method: 'GET', url: "$url/categorias");
   }
 
   Future<Response?> getProductosByCategorias(int idCategoria) async {
     return await _call(
         method: 'GET',
-        url: "$url/tga/common/api/read/productos/categoria/$idCategoria");
+        url: "$url/productos/categoria/$idCategoria");
   }
 
-  Future<Response?> getPromotions() async {
+  Future<Response?> getPromotions(String correo) async {
     return await _call(
         method: 'GET',
-        url: "$url/tga/common/api/read/ofertas");
+        url: "$url/ofertas/$correo");
+  }
+  Future<Response?> getPromotion(int id) async {
+    return await _call(
+        method: 'GET',
+        url: "$url/oferta/$id");
+  }
+  Future<Response?> getAboutMe(String token) async {
+    return await _call(
+        method: 'GET',
+        url: "$url/ofertas");
+  }
+   Future<Response?> redeemPromotion(int idPromotion) async {
+    return await _call(
+        method: 'GET',
+        url: "$url/redeem/$idPromotion",);
   }
 
   Future<Response?> _call(
@@ -44,10 +49,11 @@ class Request {
       response = await get(
         Uri.parse(url),
         headers: await _getHeaders(),
-      ).timeout(Duration(seconds: 8));
+      ).timeout(const Duration(seconds: 8));
     } else if (method == 'POST') {
       response = await post(Uri.parse(url),
-          headers: await _getHeaders(), body: bodyJson);
+          headers: await _getHeaders(), 
+          body: bodyJson);
     }
     } on ClientException catch (e) {
       print('Client exception: $e');
@@ -64,9 +70,7 @@ class Request {
     Map<String, String> headers = {};
     headers[HttpHeaders.acceptHeader] = 'application/json';
     headers[HttpHeaders.contentTypeHeader] = 'application/json';
-    /*if(loginBloc.state is LogedState){
-       headers[HttpHeaders.authorizationHeader] = "Bearer ${(loginBloc.state as LogedState).token.accessToken!}"; //(await secureStorage.getString("token"))!;
-    }*/
+    headers[HttpHeaders.authorizationHeader] = "Bearer ${await secureStorage.getString("token")}";
     return headers;
   }
 }

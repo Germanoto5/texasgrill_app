@@ -28,7 +28,10 @@ class _TexasGrillAppState extends State<TexasGrillApp> {
       DeviceOrientation.portraitUp
     ]);
     return MultiBlocProvider(
-      providers: [BlocProvider<LoginBloc>(create: (context) => loginBloc)],
+      providers: [
+        BlocProvider<LoginBloc>(create: (context) => loginBloc),
+        
+        ],
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
         localizationsDelegates: AppLocalizations.localizationsDelegates,

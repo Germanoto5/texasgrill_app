@@ -11,7 +11,6 @@ class PromotionsPage extends StatefulWidget {
 }
 
 class _PromotionsPageState extends State<PromotionsPage> {
-  PromotionsBloc promotionsBloc = PromotionsBloc();
 
   @override
   void initState(){
@@ -23,7 +22,7 @@ class _PromotionsPageState extends State<PromotionsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.secondary,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: BlocBuilder<PromotionsBloc, PromotionsState>(
         bloc: promotionsBloc,
         builder: (context, state){
@@ -41,32 +40,7 @@ class _PromotionsPageState extends State<PromotionsPage> {
               ),
             );
           }else{
-            return Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(Icons.report_problem_outlined,
-                            color: Theme.of(context).colorScheme.primary,
-                            size: 100,),
-                            const SizedBox(width: 25,),
-                            Flexible(
-                              child: Text(
-                                (state as ErrorPromotionsState).message,
-                                style: TextStyle(
-                                  color: Theme.of(context).colorScheme.primary,
-                                  fontSize: 20
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                    ],
-                  ),
-                );
+            return ErrorWidget((state as ErrorPromotionsState).message);
           }
         },
       ),

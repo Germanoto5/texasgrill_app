@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:http/http.dart';
-import 'package:texasgrill_app/api/request.dart';
+import 'package:texasgrill_app/api/authentication_request.dart';
 import 'package:texasgrill_app/models/user.dart';
 
 part 'sign_in_event.dart';
@@ -13,7 +13,7 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
   SignInBloc() : super(SignInInitial()) {
     on<SignInProcessEvent>((event, emit) async{
       emit(SigningInState());
-      Response? response = await request.register(jsonEncode(event.user.toJson()));
+      Response? response = await authenticationRequest.register(jsonEncode(event.user.toJson()));
       if(response!= null){
         if(response.statusCode == 201){
           emit(SignInSuccesState());

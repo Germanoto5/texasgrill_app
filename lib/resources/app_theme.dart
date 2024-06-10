@@ -11,6 +11,7 @@ ThemeData defaultTheme() {
 
 BottomNavigationBarThemeData _bottomNavigationBarTheme() {
   return const BottomNavigationBarThemeData(
+    elevation: 0,
     backgroundColor: Color(0xFF2B2824),
     unselectedItemColor:Color(0xFFB08A4C),
     selectedItemColor: Color(0xffF0F4F5),
@@ -25,6 +26,7 @@ ColorScheme _colorScheme() {
       tertiary: const Color(0xffD8E0E3),
       tertiaryContainer: const Color(0xffF0F4F5),
       surface: const  Color(0xFF2B2824),
+      surfaceContainerLow: const Color(0xFF4E473E),
       inverseSurface: const Color(0xff4D4740),
 
       );

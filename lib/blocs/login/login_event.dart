@@ -23,3 +23,5 @@ class SetUserEvent extends LoginEvent{
 class LogoutUserEvent extends LoginEvent{}
 
 class LoginTokenExpiredEvent extends LoginEvent{}
+
+class AboutMeEvent extends LoginEvent {}

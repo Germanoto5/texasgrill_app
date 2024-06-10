@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:http/http.dart';
 import 'package:meta/meta.dart';
-import 'package:texasgrill_app/api/request.dart';
+import 'package:texasgrill_app/api/authentication_request.dart';
 import 'package:texasgrill_app/models/login.dart';
 import 'package:texasgrill_app/models/token.dart';
 import 'package:texasgrill_app/models/user.dart';
@@ -18,7 +18,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<LogingUserEvent>((event, emit) async {
       emit(LogingState());
       String bodyPet = jsonEncode(event.login.toJson());
-      Response? res = await request.login(bodyPet);
+      Response? res = await authenticationRequest.login(bodyPet);
       if (res != null) {
         if (res.statusCode == 200 || res.statusCode == 201) {
           Map<String, dynamic> data = jsonDecode(res.body);

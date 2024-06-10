@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:texasgrill_app/pages/home/home_page.dart';
 import 'package:texasgrill_app/pages/login/login_page.dart';
+import 'package:texasgrill_app/pages/profile/profile_page.dart';
+import 'package:texasgrill_app/pages/promotion/promotion_detail_page.dart';
 import 'package:texasgrill_app/pages/sign_in/sign_in_page.dart';
 
 GoRouter createRouter(String initialLocation) {
@@ -25,8 +27,21 @@ GoRouter createRouter(String initialLocation) {
         builder: (BuildContext context, GoRouterState state) {
           return const HomePage(title : "");
         },
-        /*routes: <GoRoute>[
-        ]*/
+        routes: <GoRoute>[
+          GoRoute(
+        path: 'me',
+        builder: (BuildContext context, GoRouterState state) {
+          return const ProfilePage();
+        },
+      ),
+      GoRoute(
+        path: 'promotion/:idPromotion',
+        builder: (BuildContext context, GoRouterState state) {
+          int idPromotion = int.parse(state.pathParameters['idPromotion']!);
+          return PromotionDetailPage(idPromotion: idPromotion,);
+        },
+      ),
+        ]
       ),
     ],
     
