@@ -5,7 +5,7 @@ import 'package:http/http.dart';
 import 'package:texasgrill_app/utils/secure_storage.dart';
 
 class Request {
-  String url = "http://192.168.1.14:3030/tga/api";
+  String url = "http://192.168.184.27:3030/tga/api";
 
 
   Future<Response?> getAboutMe() async {

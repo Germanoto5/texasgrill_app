@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:http/http.dart';
 
 class AuthenticationRequest{
-  String url = "http://192.168.1.14:3030/api/authentication";
+  String url = "http://192.168.184.27:3030/api/authentication";
 
   Future<Response?> login(String user) async {
     return await _call(

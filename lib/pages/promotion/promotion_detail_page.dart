@@ -90,6 +90,8 @@ class _PromotionDetailPageState extends State<PromotionDetailPage> {
                 children: [
                   Stack(
                     children: [
+                      state.promotion.imagen != null ? 
+                      Image.network(state.promotion.imagen!):
                       Image.asset(
                         'assets/images/imagenOferta.jpg',
                         width: MediaQuery.of(context).size.width,
@@ -136,14 +138,14 @@ class _PromotionDetailPageState extends State<PromotionDetailPage> {
                     child: Row(
                       children: [
                         Icon(
-                          Icons.person_outline,
+                          Icons.help_outline,
                           color: Theme.of(context).colorScheme.secondary,
                         ),
                         const SizedBox(
                           width: 10,
                         ),
                         Text(
-                          "Debes estar registrado para canjear esta oferta",
+                          "Normas y condiciones en el restaurante",
                           style: TextStyle(
                               color: Theme.of(context).colorScheme.tertiary,
                               fontSize: 13),

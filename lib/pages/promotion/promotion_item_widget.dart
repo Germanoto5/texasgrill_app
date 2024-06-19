@@ -27,8 +27,8 @@ class _PromotionWidgetState extends State<PromotionWidget> {
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),
-          image: const DecorationImage(
-            image: AssetImage("assets/images/imagenOferta.jpg"),
+          image:  DecorationImage(
+            image: widget.promotion.imagen != null  ? NetworkImage("${widget.promotion.imagen}") : const AssetImage("assets/images/imagenOferta.jpg") as ImageProvider,
             fit: BoxFit.cover,
           ),
         ),

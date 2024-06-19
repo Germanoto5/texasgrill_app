@@ -32,21 +32,20 @@ class ProductWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.max,
             children: [
-              Center(
-                child: Image.asset(
-                  'assets/images/burguer.png',
-                  width: 120,
-                  height: 120,
-                ),
-              ),
-              /*product.urlImagen != null && product.urlImagen!.isNotEmpty? 
+              product.urlImagen != null && product.urlImagen!.isNotEmpty? 
               Center(
                 child: Image.network(
                   product.urlImagen!,
                   width: 120,
                   height: 120,
                 ),
-              ) : SizedBox(),*/
+              ) : Center(
+                child: Image.asset(
+                  'assets/images/burguer.png',
+                  width: 120,
+                  height: 120,
+                ),
+              ),
               const SizedBox(
                 height: 10,
               ),

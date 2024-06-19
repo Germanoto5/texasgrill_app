@@ -16,7 +16,14 @@ class ProductDetail extends StatelessWidget {
         children: <Widget>[
           Stack(
             children: [
-              Padding(
+              product.urlImagen != null && product.urlImagen!.isNotEmpty? 
+              Center(
+                child: Image.network(
+                  product.urlImagen!,
+                  width: 120,
+                  height: 120,
+                ),
+              ) : Padding(
                 padding: const EdgeInsets.only(top: 20),
                 child: Center(
                     child: Image.asset(
@@ -38,14 +45,7 @@ class ProductDetail extends StatelessWidget {
                       color: Theme.of(context).colorScheme.primary,
                     )),
               ),
-              /*product.urlImagen != null && product.urlImagen!.isNotEmpty? 
-              Center(
-                child: Image.network(
-                  product.urlImagen!,
-                  width: 120,
-                  height: 120,
-                ),
-              ) : SizedBox(),*/
+              
             ],
           ),
           const SizedBox(height: 10,),

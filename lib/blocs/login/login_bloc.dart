@@ -41,7 +41,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           emit(LoginErrorState(statusCode: res.statusCode, message: jsonDecode(res.body)["message"]));
         }
       }
-      emit(LoginErrorState(statusCode: 1, message: 'Unknow error'));
+      emit(LoginErrorState(statusCode: 1, message: 'No hay conexión en este momento'));
     });
     on<SetUserEvent>((event, emit) async {
       emit(LogedState(token: event.token, user: event.user));
